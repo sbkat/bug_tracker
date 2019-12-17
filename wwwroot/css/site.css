@@ -4,13 +4,13 @@
 }
 
 html {
-  margin-top: 20vh;
+  margin: 10px;
 }
-
+      
 /* body  */
 body {
   background: rgb(35, 43, 51);
-  color: #435160;
+  color: #768aa0;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -24,8 +24,13 @@ h2 {
   margin-bottom: 20px;
 }
 
+span {
+  color: rgb(175, 66, 66);
+  font-size: 12px;
+}
+
 a {
-  color: #435160;
+  color: #6c7b8b;
   text-decoration: none;
   font-size: 12px;
 }
@@ -35,15 +40,22 @@ a:hover {
 }
 
 .login {
-  width: 350px;
+  top: 25%;
+}
+
+.login, .reg {
+  width: 400px;
   position: absolute;
-  top: 30%;
   left: 50%;
   margin-left: -175px;
 }
 
+.reg {
+  top:5%;
+}
+
 input { 
-  width: 350px;
+  width: 400px;
   background: transparent;
   border: 0;
   border-bottom: 1px solid #435160;
@@ -60,7 +72,7 @@ input {
 .submit {
   background: #1FCE6D;
   border: 0;
-  width: 350px;
+  width: 400px;
   height: 40px;
   border-radius: 3px;
   color: #fff;
@@ -73,4 +85,75 @@ input {
 .submit:hover {
   background: #16aa56;
   animation-name: shake;
+}
+
+/* navbar  */
+.sidenav {
+  background-color: whitesmoke;
+  width: 4%;
+  position: relative;
+}
+
+#logo {
+  width: 50%;
+  margin-top: 10px;
+}
+
+#nav-bottom {
+  margin-top: 50vh;
+  position: fixed;
+  bottom: 75px;
+  left: 0;
+  right: 0;
+}
+
+.sidenav-two {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+/* grid  */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  grid-gap: 10px;
+  background-color: rgb(35, 43, 51);
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+/* pop-up form  */
+.form-popup {
+  display: none;
+  position: absolute;
+  right: 0;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* new ticket  */
+#create-form {
+  width: 50vw;
 }
