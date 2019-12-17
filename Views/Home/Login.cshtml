@@ -1,19 +1,18 @@
 @model LoginUser
 
-<hr>
 <div>
-    <h6 class="display-4 inline">Login</h6>
-    <a href="/" class="inline">Need to register?</a>
+    <h2 class="display-4 inline">Login</h2>
 </div>
 
-<form asp-action="Login" asp-controller="home" method="post">
-    <span asp-validation-for="email"></span><br>
-    <label asp-for="email"></label>
-    <input asp-for="email"></input><br>
+<div class="login">
+    <form asp-action="Login" asp-controller="home" method="post">
+        <span asp-validation-for="email"></span><br>    
+        <input asp-for="email" placeholder="Email"></input><br>
 
-    <span asp-validation-for="password"></span><br>
-    <label asp-for="password"></label>
-    <input asp-for="password"></input><br>
+        <span asp-validation-for="password"></span><br>
+        <input asp-for="password" placeholder="Password"></input><br>
 
-    <button class="btn btn-info">Login</button>
-</form>
+        <button class="submit">Login</button>
+        <a href="/" class="inline">Need to register?</a>
+    </form>
+</div>

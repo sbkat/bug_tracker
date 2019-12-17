@@ -89,7 +89,7 @@ namespace bug_tracker.Controllers
             return View("Login");
         }
     }
-    [HttpGet("events")]
+    [HttpGet("tickets")]
     public IActionResult Dashboard() 
     {
         if(HttpContext.Session.GetString("User")==null)

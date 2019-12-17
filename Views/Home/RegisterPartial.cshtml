@@ -1,0 +1,27 @@
+@model User
+
+<div>
+    <h2 class="inline">Register</h2>
+</div>
+
+<div class="login">
+<form asp-action="Register" asp-controller="home" method="post">
+    <span asp-validation-for="firstName"></span><br>
+    <input asp-for="firstName" placeholder="First name"></input><br>
+
+    <span asp-validation-for="lastName"></span><br>
+    <input asp-for="lastName" placeholder="Last name"></input><br>
+
+    <span asp-validation-for="email"></span><br>
+    <input asp-for="email" placeholder="Email"></input><br>
+
+    <span asp-validation-for="password"></span><br>
+    <input asp-for="password" placeholder="Password"></input><br>
+
+    <span asp-validation-for="confirmPassword"></span><br>
+    <input asp-for="confirmPassword" placeholder="Confirm Password"></input><br>
+
+    <button class="submit">Sign Up</button>
+    <a href="/login" class="inline">Already registered?</a>
+</form>
+</div>
