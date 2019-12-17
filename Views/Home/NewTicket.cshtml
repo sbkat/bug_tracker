@@ -1,0 +1,66 @@
+@model TicketViewModel
+
+<ul id="slide-out" class="sidenav sidenav-fixed text-center">
+    <a href="/tickets"><img src="https://cdn4.iconfinder.com/data/icons/eldorado-multimedia/40/bug-512.png" alt="logo" class="circle" id="logo"></a>
+    <hr>
+    <a href="#!"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/4649228851548336252-24.png" alt="search"></a>
+    <hr>
+    <a href="/tickets/new"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/6540698631554126213-24.png" alt="add"></a>
+    <hr>
+    <div id="nav-bottom">
+        <hr>
+        <a href="#!"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/15211315791553239378-24.png" alt="menu"></a>
+        <hr>
+        <a href="#!"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/8905775431554126461-24.png" alt="questions"></a>        
+        <hr>
+        <a href="/logout"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/11600322591535351491-20.png" alt="logout"></a>
+    </div>
+</ul>
+
+<div id="create-form">
+    <h1>New Ticket</h1>
+    <form asp-action="CreateTicket" asp-controller="home" method="post">
+        <span asp-validation-for="@Model.Ticket.Title"></span><br>
+        <label asp-for="@Model.Ticket.Title">Problem</label>
+        <input asp-for="@Model.Ticket.Title" placeholder="What's the bug?"></input><br>
+
+        <span asp-validation-for="@Model.Ticket.Task"></span><br>
+        <label asp-for="@Model.Ticket.Task">Task</label>
+        <input asp-for="@Model.Ticket.Task" placeholder="Provide a brief description of the task"></input><br>
+
+        <span asp-validation-for="@Model.Ticket.Priority"></span><br>
+        <label asp-for="@Model.Ticket.Priority">Priority</label>
+        <select asp-for="@Model.Ticket.Priority">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+
+        <span asp-validation-for="@Model.Ticket.Status"></span><br>
+        <label asp-for="@Model.Ticket.Status">Status</label>
+        <select asp-for="@Model.Ticket.Status">
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="For Review">For Review</option>
+            <option value="Resolved">Resolved</option>
+        </select>
+
+        <span asp-validation-for="@Model.Ticket.Assignment"></span><br>
+        <label asp-for="@Model.Ticket.Assignment">Assign To</label>
+        <select asp-for="@Model.Ticket.Assignment">
+            @foreach(var user in Model.Users)
+            {
+                <option value="@user.UserId">@user.firstName @user.lastName</option>
+            }
+        </select>
+
+        <button class="submit">Create</button>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+    });
+</script>

@@ -23,8 +23,13 @@ namespace bug_tracker.Controllers
     {
         return View();
     }
+    [HttpGet("devreg")]
+    public IActionResult RegisterDev()
+    {
+        return View();
+    }
     [HttpPost("register")]
-    public IActionResult Register(User newUser)
+    public IActionResult RegisterDev(User newUser)
     {
         if(ModelState.IsValid)
         {
@@ -49,6 +54,35 @@ namespace bug_tracker.Controllers
         {
             return View("Index");
         }
+    }
+    [HttpPost("adminreg")]
+    public IActionResult RegisterAdmin(Admin newAdmin)
+    {
+        if(ModelState.IsValid)
+        {
+            if(dbContext.Users.Any(user => user.email == newAdmin.email))
+            {
+                ModelState.AddModelError("email", "Email is already registered.");
+                return View("Index");
+            }
+            if(dbContext.Admins.Any(admin => admin.email == newAdmin.email))
+            {
+                ModelState.AddModelError("email", "Email is already registered.");
+                return View("Index");
+            }
+            else
+            {
+                PasswordHasher<Admin> Hasher = new PasswordHasher<Admin>();
+                newAdmin.password = Hasher.HashPassword(newAdmin, newAdmin.password);
+                dbContext.Admins.Add(newAdmin);
+                dbContext.SaveChanges();
+                HttpContext.Session.SetString("User", newAdmin.email);
+                HttpContext.Session.SetString("UserName", newAdmin.firstName);
+                HttpContext.Session.SetInt32("UserId", newAdmin.AdminId);
+                return RedirectToAction("Dashboard");
+            }
+        }
+        return View("Index");
     }
     [HttpGet("login")]
     public IActionResult Login()
@@ -98,9 +132,43 @@ namespace bug_tracker.Controllers
         }
         else
         {
-            return View();
+            List<Ticket> allTickets = dbContext.Tickets.ToList();
+            return View(allTickets);
         }
     }
+    [HttpGet("tickets/new")]
+    public IActionResult NewTicket() 
+    {
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            List<User> allUsers = dbContext.Users.ToList();
+            return View(new TicketViewModel{Users = allUsers});
+        }
+    }
+    [HttpPost("tickets/new")]
+    public IActionResult CreateTicket(TicketViewModel newTicket) 
+    {
+        if(ModelState.IsValid)
+        {
+            Admin thisAdmin = dbContext.Admins.FirstOrDefault(admin => admin.AdminId == HttpContext.Session.GetInt32("UserId"));
+            newTicket.Ticket.Creator = thisAdmin;
+            newTicket.Ticket.AdminId = thisAdmin.AdminId;
+            dbContext.Add(newTicket.Ticket);
+            dbContext.SaveChanges();
+            return RedirectToAction("Dashboard");
+        }
+        else
+        {
+            List<User> allUsers = dbContext.Users.ToList();
+            return View("NewTicket", new TicketViewModel{Users = allUsers});
+        }
+    }
+
+    [HttpGet("logout")]
     public IActionResult Logout()
     {
         HttpContext.Session.Clear();

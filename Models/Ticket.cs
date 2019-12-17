@@ -24,6 +24,7 @@ namespace bug_tracker.Models
         [Display (Name="Assigned to: ")]
         [Required (ErrorMessage = "Assignment is required.")]
         public User Assignment { get; set; }
-
+        public Admin Creator { get; set; }
+        public int AdminId { get; set; }
     }
 }

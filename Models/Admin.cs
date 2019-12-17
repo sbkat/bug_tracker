@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace bug_tracker.Models
 {
-    public class User
+    public class Admin
     {
         [Key]
-        public int UserId { get; set; }
+        public int AdminId { get; set; }
         [Display (Name="First Name: ")]
         [Required (ErrorMessage = "Enter your first name.")]
         [MinLength(2, ErrorMessage = "First name must be at least 2 characters.")]
@@ -38,6 +38,6 @@ namespace bug_tracker.Models
         public string confirmPassword { get; set; }
         public DateTime CreatedAt {get;set;} = DateTime.Now;
         public DateTime UpdatedAt {get;set;} = DateTime.Now;
-        public List<Ticket> AssignedTickets { get; set; }
+        public List<Ticket> CreatedTickets { get; set; }
     }
 }
