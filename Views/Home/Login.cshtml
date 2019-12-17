@@ -1,10 +1,7 @@
 @model LoginUser
 
-<div>
-    <h2 class="display-4 inline">Login</h2>
-</div>
-
 <div class="login">
+    <h2>Login</h2>
     <form asp-action="Login" asp-controller="home" method="post">
         <span asp-validation-for="email"></span><br>    
         <input asp-for="email" placeholder="Email"></input><br>
@@ -13,6 +10,8 @@
         <input asp-for="password" placeholder="Password"></input><br>
 
         <button class="submit">Login</button>
+    <div class="text-center">
         <a href="/" class="inline">Need to register?</a>
+    </div>
     </form>
 </div>

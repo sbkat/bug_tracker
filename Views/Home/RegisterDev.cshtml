@@ -1,8 +1,8 @@
 @model User
 
 <div class="reg">
-    <h2 >Admin Registration</h2>
-    <form asp-action="RegisterAdmin" asp-controller="home" method="post">
+    <h2>Developer Registration</h2>
+    <form asp-action="RegisterDev" asp-controller="home" method="post">
         <span asp-validation-for="firstName"></span><br>
         <input asp-for="firstName" placeholder="First name"></input><br>
 
@@ -18,10 +18,10 @@
         <span asp-validation-for="confirmPassword"></span><br>
         <input asp-for="confirmPassword" placeholder="Confirm Password"></input><br>
 
-        <button class="submit">Sign Up</button><br>
+        <button class="submit">Sign Up</button>
     </form>
     <div class="text-center">
-        <a href="/devreg" class="inline">Register as a Developer</a> | 
+        <a href="/" class="inline">Register as an Administrator</a> | 
         <a href="/login" class="inline">Already registered?</a> |
         <a href="" class="inline">Login as Guest</a>
     </div>
