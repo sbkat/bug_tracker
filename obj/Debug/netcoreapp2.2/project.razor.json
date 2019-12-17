@@ -2996,6 +2996,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Kathy\\Desktop\\Coding\\Coding Dojo\\csharp\\bug_tracker\\Views\\Home\\NewTicket.cshtml",
+      "TargetPath": "Views\\Home\\NewTicket.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Kathy\\Desktop\\Coding\\Coding Dojo\\csharp\\bug_tracker\\Views\\Home\\Dashboard.cshtml",
       "TargetPath": "Views\\Home\\Dashboard.cshtml",
       "FileKind": "mvc"
@@ -3008,6 +3013,11 @@
     {
       "FilePath": "c:\\Users\\Kathy\\Desktop\\Coding\\Coding Dojo\\csharp\\bug_tracker\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Kathy\\Desktop\\Coding\\Coding Dojo\\csharp\\bug_tracker\\Views\\Home\\RegisterDev.cshtml",
+      "TargetPath": "Views\\Home\\RegisterDev.cshtml",
       "FileKind": "mvc"
     }
   ],
