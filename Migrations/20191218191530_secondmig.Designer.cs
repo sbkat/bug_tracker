@@ -9,8 +9,8 @@ using bug_tracker.Models;
 namespace bug_tracker.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191217215819_firstmig")]
-    partial class firstmig
+    [Migration("20191218191530_secondmig")]
+    partial class secondmig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,40 +19,12 @@ namespace bug_tracker.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("bug_tracker.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime>("UpdatedAt");
-
-                    b.Property<string>("email")
-                        .IsRequired();
-
-                    b.Property<string>("firstName")
-                        .IsRequired();
-
-                    b.Property<string>("lastName")
-                        .IsRequired();
-
-                    b.Property<string>("password")
-                        .IsRequired();
-
-                    b.HasKey("AdminId");
-
-                    b.ToTable("Admins");
-                });
-
             modelBuilder.Entity("bug_tracker.Models.Ticket", b =>
                 {
                     b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AdminId");
-
-                    b.Property<int>("AssignmentUserId");
+                    b.Property<DateTime>("Deadline");
 
                     b.Property<string>("Priority")
                         .IsRequired();
@@ -66,11 +38,11 @@ namespace bug_tracker.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("TicketId");
 
-                    b.HasIndex("AdminId");
-
-                    b.HasIndex("AssignmentUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -83,6 +55,8 @@ namespace bug_tracker.Migrations
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<int>("UserPrivilege");
 
                     b.Property<string>("email")
                         .IsRequired();
@@ -103,14 +77,9 @@ namespace bug_tracker.Migrations
 
             modelBuilder.Entity("bug_tracker.Models.Ticket", b =>
                 {
-                    b.HasOne("bug_tracker.Models.Admin")
-                        .WithMany("CreatedTickets")
-                        .HasForeignKey("AdminId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("bug_tracker.Models.User", "Assignment")
                         .WithMany("AssignedTickets")
-                        .HasForeignKey("AssignmentUserId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

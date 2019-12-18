@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using bug_tracker.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace bug_tracker.Controllers
 {
@@ -29,7 +30,7 @@ namespace bug_tracker.Controllers
         return View();
     }
     [HttpPost("register")]
-    public IActionResult RegisterDev(User newUser)
+    public IActionResult Register(User newUser)
     {
         if(ModelState.IsValid)
         {
@@ -42,6 +43,7 @@ namespace bug_tracker.Controllers
             {
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 newUser.password = Hasher.HashPassword(newUser, newUser.password);
+                newUser.UserPrivilege = 2;
                 dbContext.Users.Add(newUser);
                 dbContext.SaveChanges();
                 HttpContext.Session.SetString("User", newUser.email);
@@ -56,33 +58,32 @@ namespace bug_tracker.Controllers
         }
     }
     [HttpPost("adminreg")]
-    public IActionResult RegisterAdmin(Admin newAdmin)
+    public IActionResult RegisterAdmin(User newUser)
     {
         if(ModelState.IsValid)
         {
-            if(dbContext.Users.Any(user => user.email == newAdmin.email))
-            {
-                ModelState.AddModelError("email", "Email is already registered.");
-                return View("Index");
-            }
-            if(dbContext.Admins.Any(admin => admin.email == newAdmin.email))
+            if(dbContext.Users.Any(user => user.email == newUser.email))
             {
                 ModelState.AddModelError("email", "Email is already registered.");
                 return View("Index");
             }
             else
             {
-                PasswordHasher<Admin> Hasher = new PasswordHasher<Admin>();
-                newAdmin.password = Hasher.HashPassword(newAdmin, newAdmin.password);
-                dbContext.Admins.Add(newAdmin);
+                PasswordHasher<User> Hasher = new PasswordHasher<User>();
+                newUser.password = Hasher.HashPassword(newUser, newUser.password);
+                newUser.UserPrivilege = 1;
+                dbContext.Users.Add(newUser);
                 dbContext.SaveChanges();
-                HttpContext.Session.SetString("User", newAdmin.email);
-                HttpContext.Session.SetString("UserName", newAdmin.firstName);
-                HttpContext.Session.SetInt32("UserId", newAdmin.AdminId);
+                HttpContext.Session.SetString("User", newUser.email);
+                HttpContext.Session.SetString("UserName", newUser.firstName);
+                HttpContext.Session.SetInt32("UserId", newUser.UserId);
                 return RedirectToAction("Dashboard");
             }
         }
-        return View("Index");
+        else
+        {
+            return View("Index");
+        }
     }
     [HttpGet("login")]
     public IActionResult Login()
@@ -132,7 +133,7 @@ namespace bug_tracker.Controllers
         }
         else
         {
-            List<Ticket> allTickets = dbContext.Tickets.ToList();
+            List<Ticket> allTickets = dbContext.Tickets.Include(u=>u.Assignment).ToList();
             return View(allTickets);
         }
     }
@@ -154,12 +155,30 @@ namespace bug_tracker.Controllers
     {
         if(ModelState.IsValid)
         {
-            Admin thisAdmin = dbContext.Admins.FirstOrDefault(admin => admin.AdminId == HttpContext.Session.GetInt32("UserId"));
-            newTicket.Ticket.Creator = thisAdmin;
-            newTicket.Ticket.AdminId = thisAdmin.AdminId;
-            dbContext.Add(newTicket.Ticket);
-            dbContext.SaveChanges();
-            return RedirectToAction("Dashboard");
+            User ticketCreator = dbContext.Users.FirstOrDefault(user => user.UserId == HttpContext.Session.GetInt32("UserId"));
+            User thisUser = dbContext.Users.FirstOrDefault(user => user.UserId == newTicket.Ticket.UserId);
+            if(ticketCreator.UserId == 1)
+            {
+                if(newTicket.Ticket.Deadline > DateTime.Now)
+                {
+                    newTicket.Ticket.Assignment = thisUser;
+                    dbContext.Add(newTicket.Ticket);
+                    dbContext.SaveChanges();
+                    return RedirectToAction("Dashboard");
+                }
+                else
+                {
+                    ModelState.AddModelError("Ticket.Deadline", "Deadline must be set to a future date.");
+                    List<User> allUsers = dbContext.Users.ToList();
+                    return View("NewTicket", new TicketViewModel{Users = allUsers});
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("Ticket.UserId", "Need admin privileges to create/assign a new ticket.");
+                List<User> allUsers = dbContext.Users.ToList();
+                return View("NewTicket", new TicketViewModel{Users = allUsers});
+            }
         }
         else
         {

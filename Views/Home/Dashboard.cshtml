@@ -21,42 +21,63 @@
 
 <div class="grid-container">
     <div id="todo">
-        <p>To Do</p>
+        @{var todo = Model.Where(ticket => ticket.Status == "To Do").ToList();}
+        <p class="heading">To Do (@todo.Count)</p>
         <hr>
         @foreach(var item in Model)
         {
-            <div class="card">
-                <p>@item.Title</p>
-                <p>@item.Priority</p>
-                <p>@item.Assignment</p>
-            </div>
+            @if(item.Status == "To Do") {
+                <div class="card">
+                    <p>Task: @item.Title</p>
+                    <p>Priority: @item.Priority</p>
+                    <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
+                </div>
+            }
         }
     </div>
     <div id="progress">
-        <p>In Progress</p>
+        @{var progress = Model.Where(ticket => ticket.Status == "In Progress").ToList();}
+        <p class="heading">In Progress (@progress.Count)</p>
         <hr>
+        @foreach(var item in Model)
+        {
+            @if(item.Status == "In Progress") {
+                <div class="card">
+                    <p>Task: @item.Title</p>
+                    <p>Priority: @item.Priority</p>
+                    <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
+                </div>
+            }
+        }
     </div>
     <div id="review">
-        <p>For Review</p>
+        @{var review = Model.Where(ticket => ticket.Status == "For Review").ToList();}
+        <p class="heading">For Review (@review.Count)</p>
         <hr>
+        @foreach(var item in Model)
+        {
+            @if(item.Status == "For Review") {
+                <div class="card">
+                    <p>Task: @item.Title</p>
+                    <p>Priority: @item.Priority</p>
+                    <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
+                </div>
+            }
+        }
     </div>
     <div id="resolved">
-        <p>Resolved</p>
+        @{var resolved = Model.Where(ticket => ticket.Status == "Resolved").ToList();}
+        <p class="heading">Resolved (@resolved.Count)</p>
         <hr>
+        @foreach(var item in Model)
+        {
+            @if(item.Status == "Resolved") {
+                <div class="card">
+                    <p>Task: @item.Title</p>
+                    <p>Priority: @item.Priority</p>
+                    <p>Completed By: @item.Assignment.firstName @item.Assignment.lastName</p>
+                </div>
+            }
+        }
     </div>
-</div>
-
-<div class="form-popup" id="createForm">
-  <form action="/action_page.php" class="form-container">
-    <h1>New Ticket</h1>
-
-    <label for="Task"><b>Task</b></label>
-    <input type="text" placeholder="Enter Task" name="email" required>
-
-    <label for=""><b>Priority</b></label>
-    <input type="Priority" placeholder="Low, medium, high" name="psw" required>
-
-    <button type="submit" class="btn">Assign</button>
-    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-  </form>
 </div>

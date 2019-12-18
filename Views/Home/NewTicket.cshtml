@@ -36,6 +36,10 @@
             <option value="High">High</option>
         </select>
 
+        <span asp-validation-for="@Model.Ticket.Deadline"></span><br>
+        <label asp-for="@Model.Ticket.Deadline">Deadline</label>
+        <input asp-for="@Model.Ticket.Deadline"><br>
+
         <span asp-validation-for="@Model.Ticket.Status"></span><br>
         <label asp-for="@Model.Ticket.Status">Status</label>
         <select asp-for="@Model.Ticket.Status">
@@ -45,9 +49,9 @@
             <option value="Resolved">Resolved</option>
         </select>
 
-        <span asp-validation-for="@Model.Ticket.Assignment"></span><br>
-        <label asp-for="@Model.Ticket.Assignment">Assign To</label>
-        <select asp-for="@Model.Ticket.Assignment">
+        <span asp-validation-for="@Model.Ticket.UserId"></span><br>
+        <label asp-for="@Model.Ticket.UserId">Assign To</label>
+        <select asp-for="@Model.Ticket.UserId">
             @foreach(var user in Model.Users)
             {
                 <option value="@user.UserId">@user.firstName @user.lastName</option>

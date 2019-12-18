@@ -9,6 +9,7 @@ namespace bug_tracker.Models
     {
         [Key]
         public int UserId { get; set; }
+        public int UserPrivilege { get; set; } = 3;
         [Display (Name="First Name: ")]
         [Required (ErrorMessage = "Enter your first name.")]
         [MinLength(2, ErrorMessage = "First name must be at least 2 characters.")]
