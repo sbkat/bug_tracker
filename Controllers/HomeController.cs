@@ -186,7 +186,12 @@ namespace bug_tracker.Controllers
             return View("NewTicket", new TicketViewModel{Users = allUsers});
         }
     }
-
+    [HttpGet("tickets/{id}")]
+    public IActionResult TicketDetails(int id)
+    {
+        Ticket thisTicket = dbContext.Tickets.Include(ticket => ticket.Assignment).FirstOrDefault(ticket => ticket.TicketId == id);
+        return View(thisTicket);
+    }
     [HttpGet("logout")]
     public IActionResult Logout()
     {

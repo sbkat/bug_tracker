@@ -1,5 +1,6 @@
 @model List<Ticket>
 
+
 <ul id="slide-out" class="sidenav sidenav-fixed text-center">
     <a href="/tickets"><img src="https://cdn4.iconfinder.com/data/icons/eldorado-multimedia/40/bug-512.png" alt="logo" class="circle" id="logo"></a>
     <hr>
@@ -27,11 +28,13 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "To Do") {
+                <a href="/tickets/@item.TicketId" class="card-link">
                 <div class="card">
                     <p>Task: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
+                </a>
             }
         }
     </div>
@@ -42,11 +45,13 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "In Progress") {
+                <a href="/tickets/@item.TicketId" class="card-link">
                 <div class="card">
                     <p>Task: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
+                </a>
             }
         }
     </div>
@@ -57,11 +62,13 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "For Review") {
+                <a href="/tickets/@item.TicketId" class="card-link">
                 <div class="card">
                     <p>Task: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
+                </a>
             }
         }
     </div>
@@ -72,11 +79,13 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "Resolved") {
+                <a href="/tickets/@item.TicketId" class="card-link">
                 <div class="card">
                     <p>Task: @item.Title</p>
                     <p>Priority: @item.Priority</p>
-                    <p>Completed By: @item.Assignment.firstName @item.Assignment.lastName</p>
+                    <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
+                </a>
             }
         }
     </div>

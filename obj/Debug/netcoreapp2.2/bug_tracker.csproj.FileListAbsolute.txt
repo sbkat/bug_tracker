@@ -32,3 +32,4 @@ C:\Users\Kathy\Desktop\Coding\Coding Dojo\csharp\bug_tracker\obj\Debug\netcoreap
 C:\Users\Kathy\Desktop\Coding\Coding Dojo\csharp\bug_tracker\obj\Debug\netcoreapp2.2\Razor\Views\Home\RegisterPartial.g.cshtml.cs
 C:\Users\Kathy\Desktop\Coding\Coding Dojo\csharp\bug_tracker\obj\Debug\netcoreapp2.2\Razor\Views\Home\RegisterDev.g.cshtml.cs
 C:\Users\Kathy\Desktop\Coding\Coding Dojo\csharp\bug_tracker\obj\Debug\netcoreapp2.2\Razor\Views\Home\NewTicket.g.cshtml.cs
+C:\Users\Kathy\Desktop\Coding\Coding Dojo\csharp\bug_tracker\obj\Debug\netcoreapp2.2\Razor\Views\Home\TicketDetails.g.cshtml.cs

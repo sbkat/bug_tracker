@@ -19,7 +19,6 @@ namespace bug_tracker.Models
         [Required (ErrorMessage = "Priority is required.")]
         public string Priority { get; set; }
         [Display (Name="Deadline: ")]
-        [DataType(DataType.Date)]
         [Required (ErrorMessage = "Deadline is required.")]
         public DateTime Deadline { get; set; }
         [Display (Name="Status: ")]
