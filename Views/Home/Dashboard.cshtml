@@ -42,9 +42,9 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline</p>
                         <hr>
-                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId") && item.Assignment.UserId != item.Creator.UserId)
                         {
                             <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
                                 <select asp-for="@Model.Ticket.Status">
@@ -55,6 +55,13 @@
                                     <option value="Resolved">Resolved</option>
                                 </select>
                                 <button>Submit</button>
+                            </form>
+                        }
+                        @if(item.Creator.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="/tickets/@item.TicketId/edit">Edit Ticket</a>
+                            <form asp-action="DeleteTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post">
+                                <button id="delete-btn"><a>Delete</a></button>
                             </form>
                         }
                     </div>
@@ -84,9 +91,9 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline</p>
                         <hr>
-                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId") && item.Assignment.UserId != item.Creator.UserId)
                         {
                             <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
                                 <select asp-for="@Model.Ticket.Status">
@@ -97,6 +104,13 @@
                                     <option value="Resolved">Resolved</option>
                                 </select>
                                 <button>Submit</button>
+                            </form>
+                        }
+                        @if(item.Creator.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="/tickets/@item.TicketId/edit">Edit Ticket</a>
+                            <form asp-action="DeleteTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post">
+                                <button id="delete-btn"><a>Delete</a></button>
                             </form>
                         }
                     </div>
@@ -126,9 +140,9 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline</p>
                         <hr>
-                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId") && item.Assignment.UserId != item.Creator.UserId)
                         {
                             <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
                                 <select asp-for="@Model.Ticket.Status">
@@ -139,6 +153,13 @@
                                     <option value="Resolved">Resolved</option>
                                 </select>
                                 <button>Submit</button>
+                            </form>
+                        }
+                        @if(item.Creator.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="/tickets/@item.TicketId/edit">Edit Ticket</a>
+                            <form asp-action="DeleteTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post">
+                                <button id="delete-btn"><a>Delete</a></button>
                             </form>
                         }
                     </div>
@@ -168,9 +189,9 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline</p>
                         <hr>
-                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId") && item.Assignment.UserId != item.Creator.UserId)
                         {
                             <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
                                 <select asp-for="@Model.Ticket.Status">
@@ -181,6 +202,13 @@
                                     <option value="Resolved">Resolved</option>
                                 </select>
                                 <button>Submit</button>
+                            </form>
+                        }
+                        @if(item.Creator.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="/tickets/@item.TicketId/edit">Edit Ticket</a>
+                            <form asp-action="DeleteTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post">
+                                <button id="delete-btn"><a>Delete</a></button>
                             </form>
                         }
                     </div>

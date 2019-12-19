@@ -9,8 +9,8 @@ using bug_tracker.Models;
 namespace bug_tracker.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191218191530_secondmig")]
-    partial class secondmig
+    [Migration("20191219193710_first_migration")]
+    partial class first_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,10 +19,34 @@ namespace bug_tracker.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("bug_tracker.Models.Admin", b =>
+                {
+                    b.Property<int>("AdminId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<string>("firstName");
+
+                    b.Property<string>("lastName");
+
+                    b.HasKey("AdminId");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("bug_tracker.Models.Ticket", b =>
                 {
                     b.Property<int>("TicketId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int?>("CreatorAdminId");
 
                     b.Property<DateTime>("Deadline");
 
@@ -38,9 +62,13 @@ namespace bug_tracker.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
+                    b.Property<DateTime>("UpdatedAt");
+
                     b.Property<int>("UserId");
 
                     b.HasKey("TicketId");
+
+                    b.HasIndex("CreatorAdminId");
 
                     b.HasIndex("UserId");
 
@@ -51,10 +79,6 @@ namespace bug_tracker.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<int>("UserPrivilege");
 
@@ -77,6 +101,10 @@ namespace bug_tracker.Migrations
 
             modelBuilder.Entity("bug_tracker.Models.Ticket", b =>
                 {
+                    b.HasOne("bug_tracker.Models.Admin", "Creator")
+                        .WithMany("CreatedTickets")
+                        .HasForeignKey("CreatorAdminId");
+
                     b.HasOne("bug_tracker.Models.User", "Assignment")
                         .WithMany("AssignedTickets")
                         .HasForeignKey("UserId")

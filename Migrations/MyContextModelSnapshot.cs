@@ -22,6 +22,12 @@ namespace bug_tracker.Migrations
                     b.Property<int>("AdminId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<int>("UserId");
+
                     b.Property<string>("firstName");
 
                     b.Property<string>("lastName");
@@ -71,10 +77,6 @@ namespace bug_tracker.Migrations
                 {
                     b.Property<int>("UserId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<DateTime>("UpdatedAt");
 
                     b.Property<int>("UserPrivilege");
 

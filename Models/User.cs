@@ -37,8 +37,7 @@ namespace bug_tracker.Models
         [Compare("password", ErrorMessage = "Passwords do not match.")]
         [DataType(DataType.Password)]
         public string confirmPassword { get; set; }
-        public DateTime CreatedAt {get;set;} = DateTime.Now;
-        public DateTime UpdatedAt {get;set;} = DateTime.Now;
+
         public List<Ticket> AssignedTickets { get; set; }
     }
 }

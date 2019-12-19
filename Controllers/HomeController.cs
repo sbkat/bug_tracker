@@ -134,7 +134,7 @@ namespace bug_tracker.Controllers
         }
         else
         {
-            List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.Deadline).Include(u=>u.Assignment).ToList();
+            List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.Deadline).Include(u=>u.Assignment).Include(t=>t.Creator).ToList();
             return View(new TicketViewModel{Tickets = allTickets});
         }
     }
@@ -154,15 +154,22 @@ namespace bug_tracker.Controllers
     [HttpPost("tickets/new")]
     public IActionResult CreateTicket(TicketViewModel newTicket) 
     {
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
         if(ModelState.IsValid)
         {
             User ticketCreator = dbContext.Users.FirstOrDefault(user => user.UserId == HttpContext.Session.GetInt32("UserId"));
-            User thisUser = dbContext.Users.FirstOrDefault(user => user.UserId == newTicket.Ticket.UserId);
-            if(ticketCreator.UserId == 1)
+            Admin Creator = dbContext.Admins.FirstOrDefault(admin => admin.AdminId == HttpContext.Session.GetInt32("UserId"));
+            User assignedUser = dbContext.Users.FirstOrDefault(user => user.UserId == newTicket.Ticket.UserId);
+            if(ticketCreator.UserPrivilege == 1)
             {
                 if(newTicket.Ticket.Deadline > DateTime.Now)
                 {
-                    newTicket.Ticket.Assignment = thisUser;
+                    newTicket.Ticket.Assignment = assignedUser;
+                    newTicket.Ticket.Creator = Creator;
+                    newTicket.Ticket.Creator.UserId = ticketCreator.UserId;
                     dbContext.Add(newTicket.Ticket);
                     dbContext.SaveChanges();
                     return RedirectToAction("Dashboard");
@@ -187,11 +194,57 @@ namespace bug_tracker.Controllers
             return View("NewTicket", new TicketViewModel{Users = allUsers});
         }
     }
-    [HttpGet("tickets/{id}")]
-    public IActionResult TicketDetails(int id)
+    [HttpGet("tickets/{id}/edit")]
+    public IActionResult EditTicketView(int id)
     {
-        Ticket thisTicket = dbContext.Tickets.Include(ticket => ticket.Assignment).FirstOrDefault(ticket => ticket.TicketId == id);
-        return View(thisTicket);
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            Ticket thisTicket = dbContext.Tickets.Include(ticket => ticket.Assignment).FirstOrDefault(ticket => ticket.TicketId == id);
+            List<User> allUsers = dbContext.Users.ToList();
+            return View(new TicketViewModel{Ticket = thisTicket, Users = allUsers});
+        }
+    }
+    [HttpPost("tickets/{id}/edit/admin")]
+    public IActionResult AdminEditTicket(int id, TicketViewModel updateTicket)
+    {
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
+        if(ModelState.IsValid) {
+            if(updateTicket.Ticket.Deadline > DateTime.Now)
+            {
+                Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
+                User assignedUser = dbContext.Users.FirstOrDefault(user => user.UserId == updateTicket.UserId);
+                User ticketCreator = dbContext.Users.FirstOrDefault(user => user.UserId == HttpContext.Session.GetInt32("UserId"));
+                Admin Creator = dbContext.Admins.FirstOrDefault(admin => admin.AdminId == HttpContext.Session.GetInt32("UserId"));
+                thisTicket.Title = updateTicket.Ticket.Title;
+                thisTicket.Task = updateTicket.Ticket.Task;
+                thisTicket.Priority = updateTicket.Ticket.Priority;
+                thisTicket.Deadline = updateTicket.Ticket.Deadline;
+                thisTicket.Status = updateTicket.Ticket.Status;
+                thisTicket.UserId = updateTicket.Ticket.UserId;
+                thisTicket.Creator = Creator;
+                thisTicket.Creator.UserId = ticketCreator.UserId;
+                thisTicket.Assignment = assignedUser;
+                thisTicket.UpdatedAt = DateTime.Now;
+                dbContext.Update(thisTicket);
+                dbContext.SaveChanges();
+                return RedirectToAction("Dashboard");
+            }
+            else
+            {
+                ModelState.AddModelError("Ticket.Deadline", "Deadline must be set to a future date.");
+                Ticket thisTicket = dbContext.Tickets.Include(ticket => ticket.Assignment).FirstOrDefault(ticket => ticket.TicketId == id);
+                List<User> allUsers = dbContext.Users.ToList();
+                return View("EditTicketView", new TicketViewModel{Ticket = thisTicket, Users = allUsers});
+            }
+        }
+        return View("EditTicketView");
     }
     [HttpPost("tickets/{id}/edit")]
     public IActionResult EditTicket(int id, TicketViewModel updateTicket)
@@ -199,6 +252,14 @@ namespace bug_tracker.Controllers
         Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
         thisTicket.Status = updateTicket.Ticket.Status;
         dbContext.Update(thisTicket);
+        dbContext.SaveChanges();
+        return RedirectToAction("Dashboard");
+    }
+    [HttpPost("tickets/{id}/delete")]
+    public IActionResult DeleteTicket(int id)
+    {
+        Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
+        dbContext.Tickets.Remove(thisTicket);
         dbContext.SaveChanges();
         return RedirectToAction("Dashboard");
     }

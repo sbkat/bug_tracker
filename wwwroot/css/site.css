@@ -220,3 +220,16 @@ h3 {
   width: 40%;
   display: inline-block;
 }
+
+/* delete button  */
+#delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #6c7b8b;
+}
+
+#delete-btn:hover {
+  color: rgb(167, 29, 29);
+}
