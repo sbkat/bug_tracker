@@ -6,6 +6,7 @@ namespace bug_tracker.Models
     {
         public MyContext(DbContextOptions options) : base(options) { }
         public DbSet<User> Users { get; set; }
+        public DbSet<Admin> Admins { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
     }
 }

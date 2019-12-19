@@ -58,7 +58,7 @@ namespace bug_tracker.Controllers
         }
     }
     [HttpPost("adminreg")]
-    public IActionResult RegisterAdmin(User newUser)
+    public IActionResult RegisterAdmin(User newUser, Admin newAdmin)
     {
         if(ModelState.IsValid)
         {
@@ -73,6 +73,7 @@ namespace bug_tracker.Controllers
                 newUser.password = Hasher.HashPassword(newUser, newUser.password);
                 newUser.UserPrivilege = 1;
                 dbContext.Users.Add(newUser);
+                dbContext.Admins.Add(newAdmin);
                 dbContext.SaveChanges();
                 HttpContext.Session.SetString("User", newUser.email);
                 HttpContext.Session.SetString("UserName", newUser.firstName);

@@ -26,6 +26,9 @@ namespace bug_tracker.Models
         public string Status { get; set; }
         [Display (Name="Assigned to: ")]
         public int UserId { get; set; }
+        public DateTime CreatedAt {get;set;} = DateTime.Now;
+        public DateTime UpdatedAt {get;set;} = DateTime.Now;
         public User Assignment { get; set; }
+        public Admin Creator { get; set; }
     }
 }
