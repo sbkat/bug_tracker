@@ -11,7 +11,7 @@ html {
 body {
   background: rgb(35, 43, 51);
   color: #768aa0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 h2 {
@@ -124,6 +124,13 @@ input {
   padding: 20px 0;
   font-size: 14px;
   border-radius: 5px;
+  height: 88vh;
+  overflow-y: scroll;
+}
+
+/* scrollbar  */
+::-webkit-scrollbar {
+  width: 0px;
 }
 
 
@@ -139,6 +146,7 @@ input {
   border-radius: 5px;
   border: 1px solid rgba(255, 255, 255, 0.8);
   margin: 5px;
+  color: rgb(70, 68, 68);
 }
 
 .card:hover, .close:hover {
@@ -171,7 +179,6 @@ p {
 .key {
   color:whitesmoke;
 }
-
 
 /* modal  */
 
