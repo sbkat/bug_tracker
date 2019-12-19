@@ -18,7 +18,7 @@
     </div>
 </ul>
 
-<p>Welcome, @HttpContextAccessor.HttpContext.Session.GetString("UserName")!</p>
+<h4 class="key">Welcome, @HttpContextAccessor.HttpContext.Session.GetString("UserName")!</h4>
 
 <div class="grid-container">
     <div id="todo">
@@ -28,13 +28,24 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "To Do") {
-                <a href="/tickets/@item.TicketId" class="card-link">
-                <div class="card">
-                    <p>Task: @item.Title</p>
+                <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
+                    <p>Bug: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
-                </a>
+                <div id="@item.TicketId" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick=(closeModal(@item.TicketId))>&times;</span>
+                        <h3 class="heading">Ticket #@item.TicketId</h3>
+                        <hr>
+                        <p class="heading">Task:</p> <p>@item.Title</p>
+                        <p class="heading">Task Description:</p> <p>@item.Task</p>
+                        <p class="heading">Priority Level:</p> <p>@item.Priority</p>
+                        <p class="heading">Current Status:</p> <p>@item.Status</p>
+                        <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
+                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                    </div>
+                </div>
             }
         }
     </div>
@@ -45,13 +56,24 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "In Progress") {
-                <a href="/tickets/@item.TicketId" class="card-link">
-                <div class="card">
-                    <p>Task: @item.Title</p>
+                <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
+                    <p>Bug: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
-                </a>
+                <div id="@item.TicketId" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick=(closeModal(@item.TicketId))>&times;</span>
+                        <h3 class="heading">Ticket #@item.TicketId</h3>
+                        <hr>
+                        <p class="heading">Task:</p> <p>@item.Title</p>
+                        <p class="heading">Task Description:</p> <p>@item.Task</p>
+                        <p class="heading">Priority Level:</p> <p>@item.Priority</p>
+                        <p class="heading">Current Status:</p> <p>@item.Status</p>
+                        <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
+                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                    </div>
+                </div>
             }
         }
     </div>
@@ -62,13 +84,24 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "For Review") {
-                <a href="/tickets/@item.TicketId" class="card-link">
-                <div class="card">
-                    <p>Task: @item.Title</p>
+                <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
+                    <p>Bug: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
-                </a>
+                <div id="@item.TicketId" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick=(closeModal(@item.TicketId))>&times;</span>
+                        <h3 class="heading">Ticket #@item.TicketId</h3>
+                        <hr>
+                        <p class="heading">Task:</p> <p>@item.Title</p>
+                        <p class="heading">Task Description:</p> <p>@item.Task</p>
+                        <p class="heading">Priority Level:</p> <p>@item.Priority</p>
+                        <p class="heading">Current Status:</p> <p>@item.Status</p>
+                        <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
+                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                    </div>
+                </div>
             }
         }
     </div>
@@ -79,14 +112,43 @@
         @foreach(var item in Model)
         {
             @if(item.Status == "Resolved") {
-                <a href="/tickets/@item.TicketId" class="card-link">
-                <div class="card">
-                    <p>Task: @item.Title</p>
+                <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
+                    <p>Bug: @item.Title</p>
                     <p>Priority: @item.Priority</p>
                     <p>Assigned To: @item.Assignment.firstName @item.Assignment.lastName</p>
                 </div>
-                </a>
+                <div id="@item.TicketId" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onclick=(closeModal(@item.TicketId))>&times;</span>
+                        <h3 class="heading">Ticket #@item.TicketId</h3>
+                        <hr>
+                        <p class="heading">Task:</p> <p>@item.Title</p>
+                        <p class="heading">Task Description:</p> <p>@item.Task</p>
+                        <p class="heading">Priority Level:</p> <p>@item.Priority</p>
+                        <p class="heading">Current Status:</p> <p>@item.Status</p>
+                        <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
+                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                    </div>
+                </div>
             }
         }
     </div>
 </div>
+
+
+<script>
+    function openModal(id) {
+        document.getElementById(id).style.display = "block";
+        window.onclick = function(event) {
+            if (event.target == document.getElementById(id)) 
+            {
+                document.getElementById(id).style.display = "none";
+            }
+        }
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+    }
+
+</script>

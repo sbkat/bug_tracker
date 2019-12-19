@@ -6,7 +6,7 @@
 html {
   margin: 10px;
 }
-      
+
 /* body  */
 body {
   background: rgb(35, 43, 51);
@@ -19,7 +19,7 @@ h2 {
   font-family: 'Sofia', cursive;
   font-size: 15px;
   font-weight: bold;
-  font-size: 3.6em;
+  font-size: 2.5em;
   text-align: center;
   margin-bottom: 20px;
 }
@@ -51,7 +51,7 @@ a:hover {
 }
 
 .reg {
-  top:5%;
+  top:10%;
 }
 
 input { 
@@ -107,18 +107,6 @@ input {
   right: 0;
 }
 
-.sidenav-two {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
 
 /* grid  */
 
@@ -132,28 +120,87 @@ input {
 
 .grid-container > div {
   background-color: rgba(255, 255, 255, 0.8);
-  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
   padding: 20px 0;
   font-size: 14px;
   border-radius: 5px;
 }
 
-/* pop-up form  */
-.form-popup {
-  display: none;
-  position: absolute;
-  right: 0;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
-
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: rgba(255, 255, 255, 0.8);
-}
 
 /* new ticket  */
 #create-form {
   width: 50vw;
+}
+
+
+/* ticket display */
+.card {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  margin: 5px;
+}
+
+.card:hover, .close:hover {
+  cursor: pointer;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card-link:hover {
+  text-decoration: none;
+  color: rgb(34, 155, 34);
+}
+
+p {
+  margin: 5px 10px;
+  display: inline-block;
+}
+
+.heading {
+  color: black;
+  font-weight: 800;
+}
+
+.hidden {
+  display: none;
+}
+
+.key {
+  color:whitesmoke;
+}
+
+
+/* modal  */
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 50px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  max-height: 95%;
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: whitesmoke;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  height: 100%;
+}
+
+h3 {
+  margin-left: 10px;
 }
