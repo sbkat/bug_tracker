@@ -133,7 +133,7 @@ namespace bug_tracker.Controllers
         }
         else
         {
-            List<Ticket> allTickets = dbContext.Tickets.Include(u=>u.Assignment).ToList();
+            List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.Deadline).Include(u=>u.Assignment).ToList();
             return View(new TicketViewModel{Tickets = allTickets});
         }
     }

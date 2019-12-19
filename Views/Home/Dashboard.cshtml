@@ -42,7 +42,7 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
@@ -84,7 +84,7 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
@@ -126,7 +126,7 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
@@ -168,7 +168,7 @@
                         <p class="heading">Priority Level:</p> <p>@item.Priority</p>
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
-                        <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <p class="heading">Deadline:</p> <p class="deadline">@item.Deadline!!!</p>
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {

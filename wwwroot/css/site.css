@@ -180,6 +180,10 @@ p {
   color:whitesmoke;
 }
 
+.deadline {
+  color: rgb(167, 29, 29);
+}
+
 /* modal  */
 
 /* The Modal (background) */
