@@ -192,6 +192,15 @@ namespace bug_tracker.Controllers
         Ticket thisTicket = dbContext.Tickets.Include(ticket => ticket.Assignment).FirstOrDefault(ticket => ticket.TicketId == id);
         return View(thisTicket);
     }
+    [HttpPost("tickets/{id}/edit")]
+    public IActionResult EditTicket(int id, TicketViewModel updateTicket)
+    {
+        Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
+        thisTicket.Status = updateTicket.Ticket.Status;
+        dbContext.Update(thisTicket);
+        dbContext.SaveChanges();
+        return RedirectToAction("Dashboard");
+    }
     [HttpGet("logout")]
     public IActionResult Logout()
     {
