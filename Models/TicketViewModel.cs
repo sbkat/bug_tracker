@@ -10,6 +10,7 @@ namespace bug_tracker.Models
         [NotMapped]
         public Ticket Ticket { get; set; }
         public List<User> Users { get; set; }
+        public List<Ticket> Tickets { get; set; }
         public int UserId { get; set; }
         public int AdminId { get; set; }
     }

@@ -134,7 +134,7 @@ namespace bug_tracker.Controllers
         else
         {
             List<Ticket> allTickets = dbContext.Tickets.Include(u=>u.Assignment).ToList();
-            return View(allTickets);
+            return View(new TicketViewModel{Tickets = allTickets});
         }
     }
     [HttpGet("tickets/new")]

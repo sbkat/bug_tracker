@@ -1,4 +1,4 @@
-@model List<Ticket>
+@model TicketViewModel
 
 <ul id="slide-out" class="sidenav sidenav-fixed text-center">
     <a href="/tickets"><img src="https://cdn4.iconfinder.com/data/icons/eldorado-multimedia/40/bug-512.png" alt="logo" class="circle" id="logo"></a>
@@ -21,10 +21,10 @@
 
 <div class="grid-container">
     <div id="todo">
-        @{var todo = Model.Where(ticket => ticket.Status == "To Do").ToList();}
+        @{var todo = Model.Tickets.Where(ticket => ticket.Status == "To Do").ToList();}
         <p class="heading">To Do (@todo.Count)</p>
         <hr>
-        @foreach(var item in Model)
+        @foreach(var item in Model.Tickets)
         {
             @if(item.Status == "To Do") {
                 <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
@@ -46,7 +46,16 @@
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
-                            <a href="">Edit</a>
+                            <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
+                                <select asp-for="@Model.Ticket.Status">
+                                    <option value="" disabled selected>Update Status of Ticket</option>
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="For Review">For Review</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <button>Submit</button>
+                            </form>
                         }
                     </div>
                 </div>
@@ -54,10 +63,10 @@
         }
     </div>
     <div id="progress">
-        @{var progress = Model.Where(ticket => ticket.Status == "In Progress").ToList();}
+        @{var progress = Model.Tickets.Where(ticket => ticket.Status == "In Progress").ToList();}
         <p class="heading">In Progress (@progress.Count)</p>
         <hr>
-        @foreach(var item in Model)
+        @foreach(var item in Model.Tickets)
         {
             @if(item.Status == "In Progress") {
                 <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
@@ -79,7 +88,16 @@
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
-                            <a href="">Edit</a>
+                            <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
+                                <select asp-for="@Model.Ticket.Status">
+                                    <option value="" disabled selected>Update Status of Ticket</option>
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="For Review">For Review</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <button>Submit</button>
+                            </form>
                         }
                     </div>
                 </div>
@@ -87,10 +105,10 @@
         }
     </div>
     <div id="review">
-        @{var review = Model.Where(ticket => ticket.Status == "For Review").ToList();}
+        @{var review = Model.Tickets.Where(ticket => ticket.Status == "For Review").ToList();}
         <p class="heading">For Review (@review.Count)</p>
         <hr>
-        @foreach(var item in Model)
+        @foreach(var item in Model.Tickets)
         {
             @if(item.Status == "For Review") {
                 <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
@@ -112,7 +130,16 @@
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
-                            <a href="">Edit</a>
+                            <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
+                                <select asp-for="@Model.Ticket.Status">
+                                    <option value="" disabled selected>Update Status of Ticket</option>
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="For Review">For Review</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <button>Submit</button>
+                            </form>
                         }
                     </div>
                 </div>
@@ -120,10 +147,10 @@
         }
     </div>
     <div id="resolved">
-        @{var resolved = Model.Where(ticket => ticket.Status == "Resolved").ToList();}
+        @{var resolved = Model.Tickets.Where(ticket => ticket.Status == "Resolved").ToList();}
         <p class="heading">Resolved (@resolved.Count)</p>
         <hr>
-        @foreach(var item in Model)
+        @foreach(var item in Model.Tickets)
         {
             @if(item.Status == "Resolved") {
                 <div class="card" id="myBtn" onclick=(openModal(@item.TicketId))>
@@ -145,7 +172,16 @@
                         <hr>
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
                         {
-                            <a href="">Edit</a>
+                            <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
+                                <select asp-for="@Model.Ticket.Status">
+                                    <option value="" disabled selected>Update Status of Ticket</option>
+                                    <option value="To Do">To Do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="For Review">For Review</option>
+                                    <option value="Resolved">Resolved</option>
+                                </select>
+                                <button>Submit</button>
+                            </form>
                         }
                     </div>
                 </div>
@@ -153,6 +189,13 @@
         }
     </div>
 </div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function(){
+        $('select').formSelect();
+    });
+</script>
 
 <script>
     function openModal(id) {
