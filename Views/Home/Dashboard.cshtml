@@ -1,6 +1,5 @@
 @model List<Ticket>
 
-
 <ul id="slide-out" class="sidenav sidenav-fixed text-center">
     <a href="/tickets"><img src="https://cdn4.iconfinder.com/data/icons/eldorado-multimedia/40/bug-512.png" alt="logo" class="circle" id="logo"></a>
     <hr>
@@ -18,7 +17,7 @@
     </div>
 </ul>
 
-<h4 class="key">Welcome, @HttpContextAccessor.HttpContext.Session.GetString("UserName")!</h4>
+<h4 class="key">@HttpContextAccessor.HttpContext.Session.GetString("UserName")'s Dashboard &#9788;</h4>
 
 <div class="grid-container">
     <div id="todo">
@@ -44,6 +43,11 @@
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
                         <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <hr>
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="">Edit</a>
+                        }
                     </div>
                 </div>
             }
@@ -72,6 +76,11 @@
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
                         <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <hr>
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="">Edit</a>
+                        }
                     </div>
                 </div>
             }
@@ -100,6 +109,11 @@
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
                         <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <hr>
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="">Edit</a>
+                        }
                     </div>
                 </div>
             }
@@ -128,13 +142,17 @@
                         <p class="heading">Current Status:</p> <p>@item.Status</p>
                         <p class="heading">Assigned To:</p> <p>@item.Assignment.firstName @item.Assignment.lastName</p>
                         <p class="heading">Deadline:</p> <p>@item.Deadline!!!</p>
+                        <hr>
+                        @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId"))
+                        {
+                            <a href="">Edit</a>
+                        }
                     </div>
                 </div>
             }
         }
     </div>
 </div>
-
 
 <script>
     function openModal(id) {
@@ -150,5 +168,4 @@
     function closeModal(id) {
         document.getElementById(id).style.display = "none";
     }
-
 </script>
