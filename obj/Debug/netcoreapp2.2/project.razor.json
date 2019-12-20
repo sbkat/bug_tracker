@@ -2986,6 +2986,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Kathy\\Desktop\\Coding\\Coding Dojo\\csharp\\bug_tracker\\Views\\Home\\SearchTicket.cshtml",
+      "TargetPath": "Views\\Home\\SearchTicket.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Kathy\\Desktop\\Coding\\Coding Dojo\\csharp\\bug_tracker\\Views\\Home\\Login.cshtml",
       "TargetPath": "Views\\Home\\Login.cshtml",
       "FileKind": "mvc"

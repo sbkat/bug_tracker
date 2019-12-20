@@ -145,6 +145,19 @@ namespace bug_tracker.Controllers
             return View(new TicketViewModel{Tickets = allTickets});
         }
     }
+    [HttpGet("tickets/search")]
+    public IActionResult SearchTicket() 
+    {
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.Deadline).ToList();
+            return View(allTickets);
+        }
+    }
     [HttpGet("tickets/new")]
     public IActionResult NewTicket() 
     {

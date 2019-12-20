@@ -242,3 +242,8 @@ h3 {
   color: rgb(34, 155, 34);
   text-decoration: underline;
 }
+
+/* search page  */
+.search-ticket-links {
+  font-size: 14px;
+}
