@@ -10,7 +10,7 @@ html {
 /* body  */
 body {
   background: rgb(35, 43, 51);
-  color: #768aa0;
+  color: #90a2b6;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -105,6 +105,10 @@ input {
   bottom: 75px;
   left: 0;
   right: 0;
+}
+
+.guest-greet {
+  font-style: italic;
 }
 
 
@@ -222,7 +226,7 @@ h3 {
 }
 
 /* delete button  */
-#delete-btn {
+#delete-btn, .guest-login {
   background: none;
   border: none;
   padding: 0;
@@ -232,4 +236,9 @@ h3 {
 
 #delete-btn:hover {
   color: rgb(167, 29, 29);
+}
+
+.guest-login:hover {
+  color: rgb(34, 155, 34);
+  text-decoration: underline;
 }

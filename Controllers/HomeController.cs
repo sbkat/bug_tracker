@@ -125,6 +125,13 @@ namespace bug_tracker.Controllers
             return View("Login");
         }
     }
+    [HttpPost("login/guest")]
+    public IActionResult GuestUser()
+    {
+        HttpContext.Session.SetString("User", "Guest");
+        HttpContext.Session.SetString("UserName", "Guest");
+        return RedirectToAction("Dashboard");
+    }
     [HttpGet("tickets")]
     public IActionResult Dashboard() 
     {
@@ -157,6 +164,10 @@ namespace bug_tracker.Controllers
         if(HttpContext.Session.GetString("User")==null)
         {
             return RedirectToAction("Index");
+        }
+        if(HttpContext.Session.GetString("UserName") == "Guest")
+        {
+            return RedirectToAction("Dashboard");
         }
         if(ModelState.IsValid)
         {
@@ -215,6 +226,10 @@ namespace bug_tracker.Controllers
         {
             return RedirectToAction("Index");
         }
+        if(HttpContext.Session.GetString("UserName") == "Guest")
+        {
+            return RedirectToAction("Dashboard");
+        }
         if(ModelState.IsValid) {
             if(updateTicket.Ticket.Deadline > DateTime.Now)
             {
@@ -249,19 +264,33 @@ namespace bug_tracker.Controllers
     [HttpPost("tickets/{id}/edit")]
     public IActionResult EditTicket(int id, TicketViewModel updateTicket)
     {
-        Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
-        thisTicket.Status = updateTicket.Ticket.Status;
-        dbContext.Update(thisTicket);
-        dbContext.SaveChanges();
-        return RedirectToAction("Dashboard");
+        if(HttpContext.Session.GetString("UserName") == "Guest")
+        {
+            return RedirectToAction("Dashboard");
+        }
+        else
+        {
+            Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
+            thisTicket.Status = updateTicket.Ticket.Status;
+            dbContext.Update(thisTicket);
+            dbContext.SaveChanges();
+            return RedirectToAction("Dashboard");
+        }
     }
     [HttpPost("tickets/{id}/delete")]
     public IActionResult DeleteTicket(int id)
     {
-        Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
-        dbContext.Tickets.Remove(thisTicket);
-        dbContext.SaveChanges();
-        return RedirectToAction("Dashboard");
+        if(HttpContext.Session.GetString("UserName") == "Guest")
+        {
+            return RedirectToAction("Dashboard");
+        }
+        else
+        {
+            Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == id);
+            dbContext.Tickets.Remove(thisTicket);
+            dbContext.SaveChanges();
+            return RedirectToAction("Dashboard"); 
+        }
     }
     [HttpGet("logout")]
     public IActionResult Logout()

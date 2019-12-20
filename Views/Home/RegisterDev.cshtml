@@ -22,7 +22,9 @@
     </form>
     <div class="text-center">
         <a href="/" class="inline">Register as an Administrator</a> | 
-        <a href="/login" class="inline">Already registered?</a> |
-        <a href="" class="inline">Login as Guest</a>
+        <a href="/login" class="inline">Already registered?</a>
+        <form asp-action="GuestUser" asp-controller="home" method="post">
+            <button class="guest-login"><a>Login as Guest</a></button>
+        </form>
     </div>
 </div>
