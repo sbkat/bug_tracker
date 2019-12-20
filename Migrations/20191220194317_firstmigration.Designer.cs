@@ -9,8 +9,8 @@ using bug_tracker.Models;
 namespace bug_tracker.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191219193710_first_migration")]
-    partial class first_migration
+    [Migration("20191220194317_firstmigration")]
+    partial class firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,6 +37,31 @@ namespace bug_tracker.Migrations
                     b.HasKey("AdminId");
 
                     b.ToTable("Admins");
+                });
+
+            modelBuilder.Entity("bug_tracker.Models.Comment", b =>
+                {
+                    b.Property<int>("CommentId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content")
+                        .HasMaxLength(250);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("TicketId");
+
+                    b.Property<DateTime>("UpdatedAt");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("CommentId");
+
+                    b.HasIndex("TicketId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Comments");
                 });
 
             modelBuilder.Entity("bug_tracker.Models.Ticket", b =>
@@ -97,6 +122,19 @@ namespace bug_tracker.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("bug_tracker.Models.Comment", b =>
+                {
+                    b.HasOne("bug_tracker.Models.Ticket", "TicketCommentedOn")
+                        .WithMany("Comments")
+                        .HasForeignKey("TicketId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("bug_tracker.Models.User", "UserCommented")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("bug_tracker.Models.Ticket", b =>

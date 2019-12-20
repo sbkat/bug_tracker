@@ -30,5 +30,6 @@ namespace bug_tracker.Models
         public DateTime UpdatedAt { get; set;} = DateTime.Now;
         public User Assignment { get; set; }
         public Admin Creator { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

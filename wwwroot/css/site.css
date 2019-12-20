@@ -247,3 +247,24 @@ h3 {
 .search-ticket-links {
   font-size: 14px;
 }
+
+h1 {
+  color: rgb(202, 200, 200);
+}
+
+/* details page  */
+.comment-div {
+  margin-top: 5vh;
+}
+
+#comment-btn {
+  float: right;
+}
+
+textarea {
+  color: white;
+}
+
+#comment-val {
+  font-size: 14px;
+}

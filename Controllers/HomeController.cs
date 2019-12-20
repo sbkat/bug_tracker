@@ -13,7 +13,6 @@ namespace bug_tracker.Controllers
 {
     public class HomeController : Controller
     {
-
     private MyContext dbContext;
     public HomeController(MyContext context)
     {
@@ -156,6 +155,71 @@ namespace bug_tracker.Controllers
         {
             List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.Deadline).ToList();
             return View(allTickets);
+        }
+    }
+    [HttpGet("tickets/{id}")]
+    public IActionResult TicketDetails(int id) 
+    {
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
+        else
+        {
+            Ticket thisTicket = dbContext.Tickets.Include(ticket => ticket.Assignment).Include(ticket => ticket.Creator).Include(ticket => ticket.Comments).FirstOrDefault(ticket => ticket.TicketId == id);
+            List<User> allUsers = dbContext.Users.ToList();
+            return View(new TicketViewModel{Ticket = thisTicket, Users = allUsers});
+        }
+    }
+    [HttpPost("tickets/{id}/comments/new")]
+    public IActionResult AddComment(int id, TicketViewModel TicketComment)
+    {
+        if(HttpContext.Session.GetString("User")==null)
+        {
+            return RedirectToAction("Index");
+        }
+        if(HttpContext.Session.GetString("UserName") == "Guest")
+        {
+            return RedirectToAction("Dashboard");
+        }
+        if(TicketComment.Comment.Content == null)
+        {
+            ModelState.AddModelError("Comment.Content", "Message content field cannot be empty.");
+            Ticket queryTicket = dbContext.Tickets.OrderByDescending(t => t.CreatedAt).Include(t => t.Assignment).Include(t => t.Creator).Include(t => t.Comments).FirstOrDefault(t => t.TicketId == id);
+            List<User> allUsers = dbContext.Users.ToList();
+            return View("TicketDetails", new TicketViewModel{Ticket = queryTicket, Users = allUsers});
+        }
+        if(ModelState.IsValid)
+        {
+            if(TicketComment.Comment.Content.Length > 5)
+            {
+                Ticket thisTicket = dbContext.Tickets.FirstOrDefault(t => t.TicketId == id);
+                User thisUser = dbContext.Users.FirstOrDefault(user => user.UserId == HttpContext.Session.GetInt32("UserId"));
+                Comment newComment = new Comment();
+                newComment.Content = TicketComment.Comment.Content;
+                newComment.UserId = thisUser.UserId;
+                newComment.TicketId = thisTicket.TicketId;
+                newComment.UserCommented = thisUser;
+                newComment.TicketCommentedOn = thisTicket;
+                dbContext.Add(newComment);
+                dbContext.SaveChanges();
+                Ticket queryTicket = dbContext.Tickets.FirstOrDefault(t => t.TicketId == id);
+                var newId = queryTicket.TicketId;
+                return RedirectToAction("TicketDetails", new {id = newId});
+            }
+            else
+            {
+                ModelState.AddModelError("Comment.Content", "Message must be at least 5 characters (250 max)");
+                Ticket queryTicket = dbContext.Tickets.OrderByDescending(t => t.CreatedAt).Include(t => t.Assignment).Include(t => t.Creator).Include(t => t.Comments).FirstOrDefault(t => t.TicketId == id);
+                List<User> allUsers = dbContext.Users.ToList();
+                return View("TicketDetails", new TicketViewModel{Ticket = queryTicket, Users = allUsers});
+            }
+        }
+        else
+        {
+            Ticket queryTicket = dbContext.Tickets.OrderByDescending(t => t.CreatedAt).Include(t => t.Assignment).Include(t => t.Creator).Include(t => t.Comments).FirstOrDefault(t => t.TicketId == id);
+            List<User> allUsers = dbContext.Users.ToList();
+            return View("TicketDetails", new TicketViewModel{Ticket = queryTicket, Users = allUsers});
         }
     }
     [HttpGet("tickets/new")]

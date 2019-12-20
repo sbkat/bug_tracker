@@ -1,0 +1,45 @@
+@model TicketViewModel
+
+<ul id="slide-out" class="sidenav sidenav-fixed text-center">
+    <a href="/tickets" title="Home"><img src="https://cdn4.iconfinder.com/data/icons/eldorado-multimedia/40/bug-512.png" alt="logo" class="circle" id="logo"></a>
+    <hr>
+    <a href="/tickets/search"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/4649228851548336252-24.png" alt="search" title="Search Ticket"></a>
+    <hr>
+    <a href="/tickets/new" title="Create Ticket"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/6540698631554126213-24.png" alt="add"></a>
+    <hr>
+    <div id="nav-bottom">
+        <hr>
+        <a href="#!"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/15211315791553239378-24.png" alt="menu"></a>
+        <hr>
+        <a href="#!"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/8905775431554126461-24.png" alt="questions"></a>
+        <hr>
+        <a href="/logout" title="Logout"><img src="https://s3.us-east-2.amazonaws.com/upload-icon/uploads/icons/png/11600322591535351491-20.png" alt="logout"></a>
+    </div>
+</ul>
+
+<div>
+    <div>
+        <h1>Details of Ticket #@Model.Ticket.TicketId:</h1>
+        <p class="key">Task:</p><p>@Model.Ticket.Title</p><br>
+        <p class="key">Task Description:</p><p>@Model.Ticket.Task</p><br>
+        <p class="key">Priority Level:</p><p>@Model.Ticket.Priority</p><br>
+        <p class="key">Current Status:</p><p>@Model.Ticket.Status</p><br>
+        <p class="key">Deadline:</p><p>@Model.Ticket.Deadline</p><br>
+        <p class="key">Assigned By:</p><p>@Model.Ticket.Creator.firstName @Model.Ticket.Creator.lastName</p>
+        <p class="key">Assigned To:</p><p>@Model.Ticket.Assignment.firstName @Model.Ticket.Assignment.lastName</p>
+    </div> 
+    <div class="comment-div">
+        <h3>Comments:</h3>
+        <form asp-action="AddComment" asp-controller="home" asp-route-id="@Model.Ticket.TicketId" method="post">
+            <span asp-validation-for="@Model.Comment.Content" id="comment-val"></span><br>
+            <textarea asp-for="@Model.Comment.Content" cols="10" rows="10"></textarea>
+            <button id="comment-btn">Add Comment</button>
+        </form>
+        @foreach(var comment in Model.Ticket.Comments)
+        {
+            <p>@comment.Content</p><br>
+            <p>- @comment.UserCommented.firstName @comment.UserCommented.lastName at @comment.CreatedAt</p>
+            <hr>
+        }
+    </div>
+</div>
