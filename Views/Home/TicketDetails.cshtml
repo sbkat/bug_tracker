@@ -30,7 +30,7 @@
     </div> 
     <div class="comment-div">
         <h3>Comments:</h3>
-        <form asp-action="AddComment" asp-controller="home" asp-route-id="@Model.Ticket.TicketId" method="post">
+        <form asp-action="AddComment" asp-controller="home" asp-route-id="@Model.Ticket.TicketId" method="post" id="comment-form">
             <span asp-validation-for="@Model.Comment.Content" id="comment-val"></span><br>
             <textarea asp-for="@Model.Comment.Content" cols="10" rows="10"></textarea>
             <button id="comment-btn">Add Comment</button>
@@ -38,6 +38,9 @@
         @foreach(var comment in Model.Ticket.Comments)
         {
             <p>@comment.Content</p><br>
+            <form asp-action="DeleteComment" asp-controller="home" asp-route-tid="@Model.Ticket.TicketId" asp-route-cid="@comment.CommentId" method="post">
+                <button id="delete-btn" class="right"><a>Delete</a></button>
+            </form>
             <p>- @comment.UserCommented.firstName @comment.UserCommented.lastName at @comment.CreatedAt</p>
             <hr>
         }

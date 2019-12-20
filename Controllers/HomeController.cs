@@ -153,7 +153,7 @@ namespace bug_tracker.Controllers
         }
         else
         {
-            List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.Deadline).ToList();
+            List<Ticket> allTickets = dbContext.Tickets.OrderBy(t => t.CreatedAt).ToList();
             return View(allTickets);
         }
     }
@@ -220,6 +220,23 @@ namespace bug_tracker.Controllers
             Ticket queryTicket = dbContext.Tickets.OrderByDescending(t => t.CreatedAt).Include(t => t.Assignment).Include(t => t.Creator).Include(t => t.Comments).FirstOrDefault(t => t.TicketId == id);
             List<User> allUsers = dbContext.Users.ToList();
             return View("TicketDetails", new TicketViewModel{Ticket = queryTicket, Users = allUsers});
+        }
+    }
+    [HttpPost("tickets/{tid}/comments/{cid}/delete")]
+    public IActionResult DeleteComment(int tid, int cid)
+    {
+        if(HttpContext.Session.GetString("UserName") == "Guest")
+        {
+            return RedirectToAction("Dashboard");
+        }
+        else
+        {
+            Comment thisComment = dbContext.Comments.FirstOrDefault(comment => comment.CommentId == cid);
+            dbContext.Comments.Remove(thisComment);
+            dbContext.SaveChanges();
+            Ticket thisTicket = dbContext.Tickets.FirstOrDefault(ticket => ticket.TicketId == tid);
+            var newId = thisTicket.TicketId;
+            return RedirectToAction("TicketDetails", new {id = newId});
         }
     }
     [HttpGet("tickets/new")]
