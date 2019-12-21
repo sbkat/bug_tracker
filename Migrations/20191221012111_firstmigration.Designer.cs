@@ -9,7 +9,7 @@ using bug_tracker.Models;
 namespace bug_tracker.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20191220194317_firstmigration")]
+    [Migration("20191221012111_firstmigration")]
     partial class firstmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

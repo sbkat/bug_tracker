@@ -9,8 +9,8 @@ namespace bug_tracker.Models
     {
         [Key]
         public int TicketId { get; set; }
-        [Display (Name="Project: ")]
-        [Required (ErrorMessage = "Project is required.")]
+        [Display (Name="Problem: ")]
+        [Required (ErrorMessage = "Problem is required.")]
         public string Title { get; set; }
         [Display (Name="Task: ")]
         [Required (ErrorMessage = "Task is required.")]
