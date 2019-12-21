@@ -13,4 +13,6 @@ Features:
 - Filter search through tickets
 
 ![wireframe-1](https://i.postimg.cc/BvRHMv72/screenshot.png)
+![wireframe-2](https://i.postimg.cc/mDMMqGKJ/screenshot-2.png)
 ![wireframe-2](https://i.postimg.cc/rw9BsnQD/screenshot-3.png)
+![wireframe-2](https://i.postimg.cc/rFJd7GNC/screenshot-4.png)
