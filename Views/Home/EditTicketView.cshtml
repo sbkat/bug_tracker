@@ -18,7 +18,7 @@
 </ul>
 
 <div id="create-form">
-    <h1>Edit Ticket #@Model.Ticket.TicketId:</h1>
+    <h4>Edit Ticket #@Model.Ticket.TicketId:</h4>
     <form asp-action="AdminEditTicket" asp-controller="home" asp-route-id="@Model.Ticket.TicketId" method="post">
         <span asp-validation-for="@Model.Ticket.Title"></span><br>
         <label asp-for="@Model.Ticket.Title">Problem</label>
