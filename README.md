@@ -1,5 +1,7 @@
 Bug Tracker
 
+Live demo: http://3.17.134.247/ (feel free to browse with guest login)
+
 A kanban board--an agile project managment tool designed to maximize flow, and an essential asset to any software development team. 
 
 Features:
