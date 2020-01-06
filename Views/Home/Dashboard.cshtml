@@ -52,7 +52,7 @@
                         @if(item.Assignment.UserId == @HttpContextAccessor.HttpContext.Session.GetInt32("UserId") && item.Assignment.UserId != item.Creator.UserId || @HttpContextAccessor.HttpContext.Session.GetString("UserName") == "Guest")
                         {
                             <form asp-action="EditTicket" asp-controller="home" asp-route-id="@item.TicketId" method="post" class="edit-select">
-                                <select asp-for="@Model.Ticket.Status">
+                                <select asp-for="@Model.Ticket.Status" class="browser-default z-depth-5">
                                     <option value="" disabled selected>Update Status of Ticket</option>
                                     <option value="To Do">To Do</option>
                                     <option value="In Progress">In Progress</option>

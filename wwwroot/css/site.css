@@ -285,3 +285,9 @@ textarea {
   padding: 0px 30px 30px 30px;
   margin-bottom: 10px;
 }
+
+.browser-default {
+  background-color: transparent;
+  border: none;
+  color: grey;
+}

@@ -30,7 +30,7 @@
 
         <span asp-validation-for="@Model.Ticket.Priority"></span><br>
         <label asp-for="@Model.Ticket.Priority">Priority</label>
-        <select asp-for="@Model.Ticket.Priority">
+        <select asp-for="@Model.Ticket.Priority" class="browser-default z-depth-5">
             <option value="Low">Low</option>
             <option value="Medium">Medium</option>
             <option value="High">High</option>
@@ -42,7 +42,7 @@
 
         <span asp-validation-for="@Model.Ticket.Status"></span><br>
         <label asp-for="@Model.Ticket.Status">Status</label>
-        <select asp-for="@Model.Ticket.Status">
+        <select asp-for="@Model.Ticket.Status" class="browser-default z-depth-5">
             <option value="To Do">To Do</option>
             <option value="In Progress">In Progress</option>
             <option value="For Review">For Review</option>
@@ -51,7 +51,7 @@
 
         <span asp-validation-for="@Model.Ticket.UserId"></span><br>
         <label asp-for="@Model.Ticket.UserId">Assign To</label>
-        <select asp-for="@Model.Ticket.UserId">
+        <select asp-for="@Model.Ticket.UserId" class="browser-default z-depth-5">
             @foreach(var user in Model.Users)
             {
                 <option value="@user.UserId">@user.firstName @user.lastName</option>
